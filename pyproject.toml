@@ -5,7 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "gradio>=5.27.0",
+    "gradio[oauth]>=5.27.0",
+    "litellm==1.67.1",
     "numpy>=2.2.5",
+    "openai>=1.76.0",
     "pandas>=2.2.3",
+    "python-dotenv>=1.1.0",
+    "requests>=2.32.3",
+    "smolagents[litellm]>=1.14.0",
+    "tqdm>=4.67.1",
+    "wikipedia-api>=0.8.1",
 ]

@@ -36,6 +36,7 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
             api_key=os.getenv("GEMINI_API_KEY"),
             planning_interval=3,
             num_ctx=8192,
+            temperature=0.2,
         )
 
     except Exception as e:

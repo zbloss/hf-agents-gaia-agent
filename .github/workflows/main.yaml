@@ -18,4 +18,5 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_USERNAME: altozachmo
           SPACE_NAME: Final_Assignment_Template
+          GEMINI_API_KEY: ${{ secrets.GOOGLE_AI_STUDIO_API_KEY }}
         run: git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME main

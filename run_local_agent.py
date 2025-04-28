@@ -7,20 +7,23 @@ from dotenv import load_dotenv
 load_dotenv()
 
 QUESTIONS_FILEPATH: str = os.getenv("QUESTIONS_FILEPATH", default="metadata.jsonl")
+OLLAMA_MODEL_ID: str = os.getenv("OLLAMA_MODEL_ID", default="gemma3:12b-it-qat")
 OLLAMA_API_BASE: str = os.getenv("OLLAMA_API_BASE", default="http://localhost:11434")
-OLLAMA_API_KEY: str | None = os.getenv("OLLAMA_API_KEY")
+OLLAMA_API_KEY: str | None = os.getenv("GOOGLE_AI_STUDIO_API_KEY")
+OLLAMA_NUM_CTX: int = int(os.getenv("OLLAMA_NUM_CTX", default=8192))
 
+myagent_args = {
+    "provider": "litellm",
+    "model_id": "gemini/gemini-2.0-flash-lite",
+    # "api_base": OLLAMA_API_BASE,
+    "planning_interval": 3,
+    "num_ctx": OLLAMA_NUM_CTX,
+}
 
-print(f"Using OLLAMA API base: {OLLAMA_API_BASE}")
+print(f"Using args: {myagent_args}")
 
 if __name__ == "__main__":
-    agent = MyAgent(
-        provider="litellm",
-        model_id="gemma3:12b-it-qat",
-        api_base=OLLAMA_API_BASE,
-        api_key=OLLAMA_API_KEY,
-        planning_interval=3,
-    )
+    agent = MyAgent(**myagent_args)
 
     with open(QUESTIONS_FILEPATH, "r") as f:
         questions = json.load(f)

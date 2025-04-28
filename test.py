@@ -2,7 +2,7 @@ from smolagents import LiteLLMModel, OpenAIServerModel
 from dotenv import load_dotenv
 load_dotenv()
 
-model_id = "ollama_chat/gemma3:12b-it-qat"
+model_id = "ollama_chat/mistral-small3.1:latest"
 api_base = "http://localhost:11434/v1"
 
 # model = LiteLLMModel(

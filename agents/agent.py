@@ -11,10 +11,11 @@ class MyAgent:
     def __init__(
         self,
         provider: str = "litellm",
-        model_id: str = "gemma3:12b-it-qat",
+        model_id: str = "ollama_chat/gemma3:12b-it-qat",
         api_base: str | None = None,
         api_key: str | None = None,
         planning_interval: int = 3,
+        num_ctx: int = 8192,
     ):
         """
         Initializes the agent depending on the provider and model ID.
@@ -29,11 +30,14 @@ class MyAgent:
         self.api_base = api_base
         self.api_key = api_key
         self.planning_interval = planning_interval
+        self.num_ctx = num_ctx
 
         model = LiteLLMModel(
-            model_id="ollama_chat/gemma3:12b-it-qat",
-            api_base="http://localhost:11434",
-            num_ctx=8196, # ollama default is 2048 which will fail horribly. 8192 works for easy tasks, more is better. Check https://huggingface.co/spaces/NyxKrage/LLM-Model-VRAM-Calculator to calculate how much VRAM this will need for the selected model.
+            model_id=self.model_id,
+            api_base=self.api_base,
+            api_key=self.api_key,
+            num_ctx=self.num_ctx,
+            add_base_tools=True,
         )
 
         tools = [

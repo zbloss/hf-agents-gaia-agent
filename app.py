@@ -30,10 +30,10 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
     try:
         agent = MyAgent(
             provider="litellm",
-            model_id="gemma3:12b-it-qat",
-            api_base="http://localhost:11434",
-            api_key=None,
+            model_id="gemini/gemini-2.0-flash-lite",
+            api_key=os.getenv("GEMINI_API_KEY"),
             planning_interval=3,
+            num_ctx=8192,
         )
 
     except Exception as e:

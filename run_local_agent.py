@@ -28,6 +28,6 @@ if __name__ == "__main__":
     with open(QUESTIONS_FILEPATH, "r") as f:
         questions = json.load(f)
 
-    answers = run_agent(agent, [questions[0]])
+    answers = run_agent(agent, [questions[1]])
     print("Answers:", answers)
     print("Finished running the agent.")

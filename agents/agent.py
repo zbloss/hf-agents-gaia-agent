@@ -6,6 +6,7 @@ from smolagents import (
 )
 from tools.text_search import TextSearch
 from tools.text_splitter import text_splitter
+from tools.video_analyzer import YouTubeObjectCounterTool
 
 class MyAgent:
     def __init__(
@@ -46,6 +47,7 @@ class MyAgent:
             TextSearch(),  # Search tool for text queries
             text_splitter, # Text splitter tool for breaking down large texts
                            # into manageable lists.
+            YouTubeObjectCounterTool(), # Tool for analyzing YouTube videos
         ]
 
 

@@ -3,6 +3,8 @@ import gradio as gr
 import requests
 import pandas as pd
 from agents.agent import MyAgent
+import time
+from tqdm import tqdm
 
 DEFAULT_API_URL = "https://agents-course-unit4-scoring.hf.space"
 
@@ -68,7 +70,7 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
     results_log = []
     answers_payload = []
     print(f"Running agent on {len(questions_data)} questions...")
-    for item in questions_data:
+    for item in tqdm(questions_data, desc="Agent is answering questions...", total=len(questions_data)):
         task_id = item.get("task_id")
         question_text = item.get("question")
         if not task_id or question_text is None:
@@ -76,6 +78,7 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
             continue
         try:
             submitted_answer = agent(question_text)
+            time.sleep(30) # to avoid rate limiting
             answers_payload.append(
                 {"task_id": task_id, "submitted_answer": submitted_answer}
             )

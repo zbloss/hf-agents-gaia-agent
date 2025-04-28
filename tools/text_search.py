@@ -1,5 +1,6 @@
 from smolagents import Tool
 
+
 class TextSearch(Tool):
     name: str = "text_search_tool"
     description: str = "This tool searches through a string for substrings and returns the indices of all occurances of that substring."
@@ -11,7 +12,7 @@ class TextSearch(Tool):
         "search_text": {
             "type": "string",
             "description": "The text to search for within source_text.",
-        }
+        },
     }
     output_type: str = "array"
 

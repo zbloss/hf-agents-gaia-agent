@@ -8,6 +8,7 @@ from tools.text_search import TextSearch
 from tools.text_splitter import text_splitter
 from tools.video_analyzer import YouTubeObjectCounterTool
 
+
 class MyAgent:
     def __init__(
         self,
@@ -45,11 +46,10 @@ class MyAgent:
             DuckDuckGoSearchTool(),  # Search tool for web queries
             WikipediaSearchTool(),  # Search tool for Wikipedia queries
             TextSearch(),  # Search tool for text queries
-            text_splitter, # Text splitter tool for breaking down large texts
-                           # into manageable lists.
-            YouTubeObjectCounterTool(), # Tool for analyzing YouTube videos
+            text_splitter,  # Text splitter tool for breaking down large texts
+            # into manageable lists.
+            YouTubeObjectCounterTool(),  # Tool for analyzing YouTube videos
         ]
-
 
         # Initialize the agent with the specified provider and model ID
         if provider == "litellm":

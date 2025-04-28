@@ -4,6 +4,7 @@ from utils import run_agent
 import os
 import json
 from dotenv import load_dotenv
+
 load_dotenv()
 
 QUESTIONS_FILEPATH: str = os.getenv("QUESTIONS_FILEPATH", default="metadata.jsonl")

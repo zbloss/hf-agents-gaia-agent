@@ -1,5 +1,6 @@
 from smolagents import LiteLLMModel, OpenAIServerModel
 from dotenv import load_dotenv
+
 load_dotenv()
 
 model_id = "ollama_chat/mistral-small3.1:latest"

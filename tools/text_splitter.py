@@ -1,10 +1,11 @@
 from smolagents import tool
 
+
 @tool
 def text_splitter(text: str, separator: str = "\n") -> list[str]:
     """
-    Splits the input text string into a list on `separator` which 
-    defaults to the newline character. This is useful for when 
+    Splits the input text string into a list on `separator` which
+    defaults to the newline character. This is useful for when
     you need to browse through a large text file that may contain
     a list your are interested in.
 

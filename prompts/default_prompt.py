@@ -15,20 +15,14 @@ def generate_prompt(question_text, file_name):
     When given a question:
     - If necessary, perform a web search using the tool `DuckDuckGoSearchTool` to find possible sources of information.
     - Use the `visit_webpage` tool to visit the webpage and extract the content in markdown format.
-    - If the web search only returns titles and short snippets, you MUST visit the actual webpage to read the full content before answering.
-    - Use the `WikipediaParser` tool to fetch and read the Wikipedia page when necessary.
-    - You just have the ability to read Wikipedia pages only.
-    - If the task requires reading, listening, or analyzing a file, you must use the file specified in the `file_name` field of the task metadata, not the file name mentioned casually inside the question text.
-    - Comma separated lists MUST contain a single space after each comma.
-    - If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise.
-    - If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise.
-    - If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
-    - Only answer after you have gathered enough information by reading the actual page contents.
+    - Use the `WikipediaSearchTool` to search for any information on Wikipedia, this will return HTML content. You need to then use the `WikipediaParser` tool to parse the HTML content into a clean, readable text format.
+    - If the file_name provided ends in ".py", use the `PythonInterpreterTool` to execute the code in the file and return the output.
+    - Use the `PythonInterpreterTool` to execute any Python code snippets you generate.
+    - Use the `TextSearch` tool to search for a substring within a string.
+    - Use the `text_splitter` tool to split a string into smaller chunks of text.
+    - If the task requires reading, listening, or analyzing a file, you must use the file specified in the `file_name` field of the task metadata, not the file name mentioned casually inside the question text. Use the `OpenFilesTool` to open the file and read its content.
     - Once you have the final answer, you must call `final_answer("your_answer")` immediately after printing it.
     - Do not retry or execute anything else after calling `final_answer`.
-    - `final_answer` must wrap the exact printed value.
-    Provide ONLY the precise answer requested. 
-    Do not include explanations, steps, reasoning, or additional text. 
     Be direct and specific. GAIA benchmark requires exact matching answers.
     Example: if asked "What is the capital of France?", respond exactly:
     Thoughts: I need to retrieve the capital of France from Wikipedia and output it directly.

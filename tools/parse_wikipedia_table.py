@@ -26,7 +26,7 @@ class WikipediaParser(Tool):
         """
 
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"  # AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
         }
         resp = requests.get(url, headers=headers, timeout=30)
         resp.raise_for_status()
@@ -49,7 +49,7 @@ class WikipediaParser(Tool):
             elif elem.name == "table":
                 elements.append(self.parse_wikipedia_table(elem))
 
-        return "\n".join(elements)
+        return "\n\n".join(elements)
 
     def parse_wikipedia_table(table: Tag) -> str:
         """

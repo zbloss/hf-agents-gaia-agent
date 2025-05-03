@@ -6,48 +6,10 @@ from agents.agent import MyAgent
 import time
 from tqdm import tqdm
 from prompts.default_prompt import generate_prompt
-from smolagents import (
-    DuckDuckGoSearchTool,
-    VisitWebpageTool,
-)
-from tools.text_search import TextSearch
-from tools.text_splitter import text_splitter
-from tools.webpage_parser import WebpageParser
-from tools.parse_wikipedia_table import WikipediaParser
-from tools.open_files import OpenFilesTool
+from agents import DEFAULT_ARGS
 
 DEFAULT_API_URL = "https://agents-course-unit4-scoring.hf.space"
 
-
-myagent_args = {
-    "provider": "litellm",
-    "model_id": "gemini/gemini-2.0-flash-lite",
-    # "api_base": OLLAMA_API_BASE,
-    "planning_interval": 3,
-    "tools": [
-        DuckDuckGoSearchTool(),
-        WikipediaParser(),
-        VisitWebpageTool(),
-        TextSearch(),
-        text_splitter,
-        WebpageParser(),
-        OpenFilesTool(),
-    ],
-    "additional_authorized_imports": [
-        "pandas",
-        "numpy",
-        "datetime",
-        "json",
-        "re",
-        "math",
-        "os",
-        "requests",
-        "csv",
-        "urllib",
-    ],
-    "num_ctx": 8192,
-    "temperature": 0.2,
-}
 
 
 def run_and_submit_all(profile: gr.OAuthProfile | None):
@@ -71,7 +33,7 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
 
     # 1. Instantiate Agent ( modify this part to create your agent)
     try:
-        agent = MyAgent(**myagent_args)
+        agent = MyAgent(**DEFAULT_ARGS)
 
     except Exception as e:
         print(f"Error instantiating agent: {e}")

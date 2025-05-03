@@ -11,6 +11,7 @@ from tools.webpage_parser import WebpageParser
 from tools.parse_wikipedia_table import WikipediaParser
 from tools.open_files import OpenFilesTool
 from prompts.default_prompt import generate_prompt
+from agents import DEFAULT_ARGS
 
 
 import os
@@ -56,10 +57,10 @@ myagent_args = {
     "temperature": 0.2,
 }
 
-print(f"Using args: {myagent_args}")
+print(f"Using args: {DEFAULT_ARGS}")
 
 if __name__ == "__main__":
-    agent = MyAgent(**myagent_args)
+    agent = MyAgent(**DEFAULT_ARGS)
 
     with open(QUESTIONS_FILEPATH, "r") as f:
         questions = json.load(f)

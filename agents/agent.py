@@ -86,6 +86,6 @@ class MyAgent:
         """
 
         final_answer = self.agent.run(question)
-        print(f"Agent received question (first 50 chars): {question[:50]}...")
+        print(f"Agent received question (last 50 chars): {question[-50:]}...")
         print(f"Agent returning fixed answer: {final_answer}")
         return final_answer

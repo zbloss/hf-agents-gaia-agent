@@ -13,15 +13,6 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-          
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-        with:
-          # Install a specific version of uv.
-          version: "0.6.17"
-
-      - name: Compile uv dependencies
-        run: uv pip compile pyproject.toml -o requirements.txt
 
       - name: Push to hub
         env:

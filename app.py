@@ -5,8 +5,49 @@ import pandas as pd
 from agents.agent import MyAgent
 import time
 from tqdm import tqdm
+from prompts.default_prompt import generate_prompt
+from smolagents import (
+    DuckDuckGoSearchTool,
+    VisitWebpageTool,
+)
+from tools.text_search import TextSearch
+from tools.text_splitter import text_splitter
+from tools.webpage_parser import WebpageParser
+from tools.parse_wikipedia_table import WikipediaParser
+from tools.open_files import OpenFilesTool
 
 DEFAULT_API_URL = "https://agents-course-unit4-scoring.hf.space"
+
+
+myagent_args = {
+    "provider": "litellm",
+    "model_id": "gemini/gemini-2.0-flash-lite",
+    # "api_base": OLLAMA_API_BASE,
+    "planning_interval": 3,
+    "tools": [
+        DuckDuckGoSearchTool(),
+        WikipediaParser(),
+        VisitWebpageTool(),
+        TextSearch(),
+        text_splitter,
+        WebpageParser(),
+        OpenFilesTool(),
+    ],
+    "additional_authorized_imports": [
+        "pandas",
+        "numpy",
+        "datetime",
+        "json",
+        "re",
+        "math",
+        "os",
+        "requests",
+        "csv",
+        "urllib",
+    ],
+    "num_ctx": 8192,
+    "temperature": 0.2,
+}
 
 
 def run_and_submit_all(profile: gr.OAuthProfile | None):
@@ -30,14 +71,7 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
 
     # 1. Instantiate Agent ( modify this part to create your agent)
     try:
-        agent = MyAgent(
-            provider="litellm",
-            model_id="gemini/gemini-2.0-flash-lite",
-            api_key=os.getenv("GEMINI_API_KEY"),
-            planning_interval=3,
-            num_ctx=8192,
-            temperature=0.2,
-        )
+        agent = MyAgent(**myagent_args)
 
     except Exception as e:
         print(f"Error instantiating agent: {e}")
@@ -72,17 +106,19 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
     answers_payload = []
     print(f"Running agent on {len(questions_data)} questions...")
     for item in tqdm(
-        questions_data[0:3],
+        questions_data,
         desc="Agent is answering questions...",
         total=len(questions_data),
     ):
         task_id = item.get("task_id")
         question_text = item.get("question")
+        file_name = item.get("file_name")
+        prompt = generate_prompt(question_text, file_name)
         if not task_id or question_text is None:
             print(f"Skipping item with missing task_id or question: {item}")
             continue
         try:
-            submitted_answer = agent(question_text)
+            submitted_answer = agent(prompt)
             time.sleep(30)  # to avoid rate limiting
             answers_payload.append(
                 {"task_id": task_id, "submitted_answer": submitted_answer}

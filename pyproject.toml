@@ -5,13 +5,17 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "beautifulsoup4>=4.13.4",
     "ffmpeg>=1.4",
     "gradio[oauth]>=5.27.0",
     "helium>=5.1.1",
     "litellm==1.67.1",
+    "markdownify>=1.1.0",
     "numpy>=2.2.5",
     "openai>=1.76.0",
+    "openai-whisper>=20240930",
     "opencv-python>=4.11.0.86",
+    "openpyxl>=3.1.5",
     "pandas>=2.2.3",
     "pillow>=11.2.1",
     "python-dotenv>=1.1.0",

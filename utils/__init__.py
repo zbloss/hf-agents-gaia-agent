@@ -1,6 +1,7 @@
 import requests
 from smolagents import CodeAgent
 from tqdm import tqdm
+from prompts.default_prompt import generate_prompt
 
 DEFAULT_API_URL: str = "https://agents-course-unit4-scoring.hf.space"
 
@@ -50,12 +51,15 @@ def run_agent(agent: CodeAgent, questions: list[dict]) -> list[str]:
     for question in tqdm(questions, desc="Running agent"):
         task_id = question.get("task_id")
         question_text = question.get("question")
+        file_name = question.get("file_name")
+        prompt = generate_prompt(question_text, file_name)
+
         if not task_id or question_text is None:
             print(f"Skipping item with missing task_id or question: {question}")
             continue
 
         try:
-            answer = agent(question_text)
+            answer = agent(prompt)
             answers_payload.append({"task_id": task_id, "submitted_answer": answer})
             results_log.append(
                 {

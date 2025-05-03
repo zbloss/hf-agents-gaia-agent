@@ -1,14 +1,10 @@
 from smolagents import (
     CodeAgent,
-    DuckDuckGoSearchTool,
-    WikipediaSearchTool,
     LiteLLMModel,
     Tool,
 )
-from tools.text_search import TextSearch
-from tools.text_splitter import text_splitter
-from tools.video_analyzer import WebVideoAnalyzerTool
 from typing import Callable
+
 
 class MyAgent:
     def __init__(

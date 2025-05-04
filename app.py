@@ -81,7 +81,7 @@ def run_and_submit_all(profile: gr.OAuthProfile | None):
             continue
         try:
             submitted_answer = agent(prompt)
-            time.sleep(30)  # to avoid rate limiting
+            time.sleep(60)  # to avoid rate limiting
             answers_payload.append(
                 {"task_id": task_id, "submitted_answer": submitted_answer}
             )
